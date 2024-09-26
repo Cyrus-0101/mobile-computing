@@ -19,6 +19,4 @@ class TaskProvider with ChangeNotifier {
   }
 
   // Implement methods to update and delete tasks
-
-  // You can also add methods for fetching and managing tasks
 }
