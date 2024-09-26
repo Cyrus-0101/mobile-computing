@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/task.dart';
-import 'package:weather_app/providers/task_provider.dart';
+import 'package:todo_app/models/task.dart';
+import 'package:todo_app/providers/task_provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
   final TextEditingController _taskController = TextEditingController();

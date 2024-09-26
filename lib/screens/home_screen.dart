@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/providers/task_provider.dart';
-import 'package:weather_app/widgets/task_tile.dart';
+import 'package:todo_app/providers/task_provider.dart';
+import 'package:todo_app/widgets/task_tile.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
