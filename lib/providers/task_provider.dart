@@ -25,10 +25,10 @@ class TaskProvider with ChangeNotifier {
   }
 
   // Implement methods to update and delete tasks
-  void updateTask(Task task) {
-    int index = _tasks.indexWhere((element) => element.id == task.id);
-    if (index != -1) {
-      _tasks[index] = task;
+  void editTask(String id, String newTitle) {
+    final taskIndex = _tasks.indexWhere((task) => task.id == id);
+    if (taskIndex != -1) {
+      _tasks[taskIndex] = Task(id: _tasks[taskIndex].id, title: newTitle, isDone: _tasks[taskIndex].isDone);
       notifyListeners();
     }
   }

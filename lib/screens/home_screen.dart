@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/providers/task_provider.dart';
 import 'package:todo_app/widgets/task_tile.dart';
+import 'package:todo_app/screens/edit_task_screen.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,6 +28,9 @@ class HomeScreen extends StatelessWidget {
               Provider.of<TaskProvider>(context, listen: false)
                   .toggleTaskStatus(index);
             },
+          onEdit: () {
+            showFullScreenEditTaskDialog(context, task.id, task.title);
+             },
             onDelete: () {
               Provider.of<TaskProvider>(context, listen: false)
                   .deleteTask(index); // Delete the task when the callback is called

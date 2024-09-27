@@ -7,7 +7,7 @@ class TaskTile extends StatelessWidget {
   final bool isDone;
   final ValueChanged<bool?> onChanged;
   final VoidCallback onDelete; // Callback for delete action
-
+  final VoidCallback onEdit;
 
   const TaskTile({
     super.key,
@@ -15,6 +15,7 @@ class TaskTile extends StatelessWidget {
     required this.title,
     required this.isDone,
     required this.onChanged,
+    required this.onEdit,
     required this.onDelete,
   });
 
@@ -40,11 +41,20 @@ class TaskTile extends StatelessWidget {
         );
       },
       
-   trailing: IconButton(
-        icon: const Icon(Icons.delete, color: Colors.red),
-        onPressed: () {
-          _showDeleteConfirmationDialog(context);
-        },
+    trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.edit, color: Colors.blue),
+            onPressed: onEdit, // Trigger the edit callback
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete, color: Colors.red),
+            onPressed: () {
+              _showDeleteConfirmationDialog(context);
+            },
+          ),
+        ],
       ),
     );
   }
