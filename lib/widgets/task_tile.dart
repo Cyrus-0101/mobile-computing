@@ -6,6 +6,8 @@ class TaskTile extends StatelessWidget {
   final String title;
   final bool isDone;
   final ValueChanged<bool?> onChanged;
+  final VoidCallback onDelete; // Callback for delete action
+
 
   const TaskTile({
     super.key,
@@ -13,6 +15,7 @@ class TaskTile extends StatelessWidget {
     required this.title,
     required this.isDone,
     required this.onChanged,
+    required this.onDelete,
   });
 
   @override
@@ -37,6 +40,37 @@ class TaskTile extends StatelessWidget {
         );
       },
       
+   trailing: IconButton(
+        icon: const Icon(Icons.delete, color: Colors.red),
+        onPressed: () {
+          _showDeleteConfirmationDialog(context);
+        },
+      ),
+    );
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Delete Task'),
+        content: const Text('Are you sure you want to delete this task?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop(); // Close the dialog without deleting
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              onDelete(); // Call the delete callback
+              Navigator.of(ctx).pop(); // Close the dialog after deleting
+            },
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
     );
   }
 }

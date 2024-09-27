@@ -19,15 +19,19 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final task = tasks[index];
           return TaskTile(
-              id: task.id,
-              title: task.title,
-              isDone: task.isDone,
-              onChanged: (value) {
-                Provider.of<TaskProvider>(context, listen: false)
-                    .toggleTaskStatus(index);
-              });
+            id: task.id,
+            title: task.title,
+            isDone: task.isDone,
+            onChanged: (value) {
+              Provider.of<TaskProvider>(context, listen: false)
+                  .toggleTaskStatus(index);
+            },
+            onDelete: () {
+              Provider.of<TaskProvider>(context, listen: false)
+                  .deleteTask(index); // Delete the task when the callback is called
+            },
+          );
         },
-        
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
