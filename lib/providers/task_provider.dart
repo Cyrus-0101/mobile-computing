@@ -13,6 +13,12 @@ class TaskProvider with ChangeNotifier {
     notifyListeners();
   }
 
+
+  // Get  a task by its id
+  Task? findById(String id) {
+    return _tasks.firstWhere((task) => task.id == id);
+  }
+
   void toggleTaskStatus(int index) {
     tasks[index].toggleDone();
     notifyListeners();

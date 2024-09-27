@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final task = tasks[index];
           return TaskTile(
+              id: task.id,
               title: task.title,
               isDone: task.isDone,
               onChanged: (value) {
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
                     .toggleTaskStatus(index);
               });
         },
+        
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
