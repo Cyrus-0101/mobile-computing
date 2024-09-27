@@ -16,7 +16,7 @@ class TaskDetailScreen extends StatelessWidget {
     if (task == null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Task Details'),
+          title: const Text('Task Details', style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         body: const Center(
           child: Text('Task not found!'),

@@ -14,9 +14,26 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo List App'),
+       title: const Text(
+          'Todo List App',
+          style: TextStyle(color: Colors.white), // AppBar title text color set to white
+        ),
+        backgroundColor: Colors.blue,
+        
       ),
-      body: ListView.builder(
+      body: tasks.isEmpty
+          ? Center(  // If no tasks, show this
+              child: Text(
+                'No tasks available!',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
+              ),
+            )
+          :
+      ListView.builder(
         itemCount: tasks.length,
         itemBuilder: (context, index) {
           final task = tasks[index];

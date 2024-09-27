@@ -12,7 +12,7 @@ void showFullScreenEditTaskDialog(BuildContext context, String taskId, String cu
       insetPadding: EdgeInsets.zero, // Removes padding to make it full screen
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Edit Task'),
+          title: const Text('Edit Task', style: TextStyle(fontWeight: FontWeight.bold)),
           leading: IconButton(
             icon: const Icon(Icons.close),
             onPressed: () {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/screens/task_detail_screen.dart'; 
 
-class TaskTile extends StatelessWidget {
+class TaskTile extends StatefulWidget {
   final String id;
   final String title;
   final bool isDone;
   final ValueChanged<bool?> onChanged;
-  final VoidCallback onDelete; // Callback for delete action
   final VoidCallback onEdit;
+  final VoidCallback onDelete;
 
   const TaskTile({
     super.key,
@@ -20,66 +20,64 @@ class TaskTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(
-          decoration: isDone ? TextDecoration.lineThrough : null,
-        ),
-      ),
-      leading: Checkbox(
-        value: isDone,
-        onChanged: onChanged,
-      ),
-      // Step 3: Add onTap for navigation to TaskDetailScreen
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => TaskDetailScreen(taskId: id),
-          ),
-        );
-      },
-      
-    trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            icon: const Icon(Icons.edit, color: Colors.blue),
-            onPressed: onEdit, // Trigger the edit callback
-          ),
-          IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: () {
-              _showDeleteConfirmationDialog(context);
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  _TaskTileState createState() => _TaskTileState();
+}
 
-  void _showDeleteConfirmationDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Delete Task'),
-        content: const Text('Are you sure you want to delete this task?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop(); // Close the dialog without deleting
-            },
-            child: const Text('Cancel'),
+class _TaskTileState extends State<TaskTile> {
+  bool _isHovered = false; // To track hover state
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {
+          _isHovered = true;
+        });
+      },
+      onExit: (_) {
+        setState(() {
+          _isHovered = false;
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12), // Rounded corners
+          border: _isHovered
+              ? Border.all(color: Colors.blue, width: 2) // Show border on hover
+              : Border.all(color: Colors.transparent), // Transparent border otherwise
+        ),
+        child: ListTile(
+          title: Text(
+            widget.title,
+            style: TextStyle(
+              decoration: widget.isDone ? TextDecoration.lineThrough : null,
+            ),
           ),
-          TextButton(
-            onPressed: () {
-              onDelete(); // Call the delete callback
-              Navigator.of(ctx).pop(); // Close the dialog after deleting
-            },
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          leading: Checkbox(
+            value: widget.isDone,
+            onChanged: widget.onChanged,
           ),
-        ],
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => TaskDetailScreen(taskId: widget.id),
+              ),
+            );
+          },
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.edit, color: Colors.blue),
+                onPressed: widget.onEdit, // Trigger the edit callback
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red),
+                onPressed: widget.onDelete, // Trigger the delete callback
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
