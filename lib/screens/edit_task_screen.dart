@@ -7,9 +7,9 @@ void showFullScreenEditTaskDialog(BuildContext context, String taskId, String cu
 
   showDialog(
     context: context,
-    barrierDismissible: false, // Prevent closing by tapping outside
+    barrierDismissible: false, 
     builder: (ctx) => Dialog(
-      insetPadding: EdgeInsets.zero, // Removes padding to make it full screen
+      insetPadding: EdgeInsets.zero,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Edit Task', style: TextStyle(fontWeight: FontWeight.bold)),
